@@ -1,0 +1,133 @@
+.containerMain{
+    display: flex;
+    flex-direction: column;
+}
+
+.menuBar{
+    width: 17vw;
+    background: linear-gradient(179.99deg, #B2D9CD 24.81%, #7DA297 99.99%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#logo{
+    margin: 0em;
+    height: 8vh;
+}
+
+.menuBar>img{
+    width: 17vw;
+    height: auto;
+    margin: 0;
+}
+
+main{
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.pasek{
+    height: 10vh;
+    background: linear-gradient(180deg, #B2D9CD 0%, #7DA297 100%);
+    display: flex;
+    flex-direction: row;
+    /*justify-content: center;
+    align-items: center;*/
+}
+
+.account, .menuIcon{
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+i{
+    font-size: 2em;
+}
+
+.logo{
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+li i {
+    font-size: 1em;
+}
+
+.siter{
+    background: linear-gradient(180deg, #E2CBD0 0%, #BEA5AA 100%);
+    height: 90vh;
+    width: 100%;
+    overflow: auto;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    font: normal normal normal 20px/27px Segoe UI;
+    letter-spacing: 0.72px;
+    color: black;
+    height: 100%;
+    width: calc(100% - 40px);
+    position: relative;
+    margin: 2em auto;
+    padding: 0;
+}
+
+li {
+    text-align: center;
+    color: black;
+    margin-bottom: 1em;
+}
+
+a{
+    color: black;
+    /*font-family: 'Jacques Francois';*/
+    text-decoration: none;
+    display: inline-block;
+    line-height: 2em;
+}
+
+@media only screen and (max-device-width: 420px){
+   
+
+
+    .menuBar{
+        width: 260vw;
+        height: 90vh;
+    }
+
+    .siter{
+        overflow: auto;
+    }
+
+    #logo{
+        height: 6vh;
+    }
+
+    i{
+        font-size: 1.5em;
+    }
+    li i{
+        font-size: 1.5em;
+    }
+
+    .menuBar>img{
+        width: 100%;;
+    }
+
+    ul{
+        margin: 4em auto;
+    }
+
+
+}

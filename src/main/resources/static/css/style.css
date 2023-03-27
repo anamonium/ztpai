@@ -1,0 +1,134 @@
+body{
+    margin: 0;
+    font-family: monospace;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #E2CBD0 0%, #BEA5AA 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font: black;
+    font-size: large;
+}
+
+
+.flowers>img{
+    width: 43vw;
+    height: 100vh;
+    margin:0;
+}
+
+.loginContainer{
+    width: 60%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.loginPhoto>img{
+    padding: 2em;
+    height: 13vh;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 48vh;
+    background: #7DA297;
+    border-radius: 40px;
+    padding: 1.5em;
+}
+
+#signinForm{
+    height: 58vh;
+}
+
+button{
+    line-height: 3em;
+    border-radius: 30px;
+    width: 28vw;
+    height: 6vh;
+    border: none;
+    background: #BEA5AA;
+    margin: 1em;
+    /*font-family: 'Jacques Francois';*/
+}
+
+#forgotYourPsswd, #signIn{
+    background: transparent;
+}
+
+input{
+    background: #E2CBD0;
+    border-radius: 30px;
+    width: 28vw;
+    height: 6vh;
+    margin: 1em;
+    border: none;
+    line-height: 3em;
+    /*font-family: 'Jacques Francois';*/
+    text-align: center;
+}
+
+label{
+    background: transparent;
+    border: none;
+    width: 50%;
+    text-align: left;
+}
+
+.no-valid{
+    border: 3px solid red;
+    border-radius: 1em;
+    box-shadow: 0 0 0.2em red;
+    outline: none;
+}
+
+
+
+@media only screen and (max-device-width: 420px) {
+    .container{
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .flowers>img{
+        width: 100%;
+    }
+
+    *{
+        font-size: 36px;
+    }
+
+    .loginContainer, .loginPhoto, .flowers{
+        width: 100%;
+    }
+
+    .loginPhoto>img{
+        width: 100%;
+        padding: 0;
+    
+    }
+
+    form{
+        margin:auto;
+        width: 65vw;
+    }
+
+    img{
+        height: 10em;
+        width: 100%;
+    }
+
+    button, input{
+        width: 50vw;
+    }
+}

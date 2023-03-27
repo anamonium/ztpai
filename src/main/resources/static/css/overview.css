@@ -1,0 +1,85 @@
+.overview{
+    font-size: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addUsersVendor{
+    display: flex;
+    width: 70vw;
+}
+
+#nameVendor, #phoneVendor, #emailVendor{
+    background: #B2D9CD;
+    width: 20%;
+}
+
+#vendorConfirm{
+    background: #7DA297;
+    width: 15em;
+}
+
+hr{
+    color: grey;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.overview{
+    background: linear-gradient(180deg, #B2D9CD 0%, rgba(178, 217, 205, 0.5) 0.01%, rgba(125, 162, 151, 0.7) 100%);
+    border-radius: 10px;
+    width: 85%;
+    margin: 2em;
+    height: 60vh;
+    box-shadow: dimgray 5px 5px;
+}
+
+.weddingDate, .budget, .guests, .tasks{
+    width: inherit;
+}
+
+.overInfo{
+    display: flex;
+    justify-content: center;
+    font-size: 1.4em;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.vendor>.overLabel{
+    margin-left: 2em;
+}
+
+span, h1{
+    font-size: 2em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+@media only screen and (max-device-width: 420px){
+    main{
+        flex-direction: column;
+    }
+
+    .menuBar{
+        width: 100vw;
+    }
+
+    span, h1{
+        font-size: 1.3em;
+    }
+
+    .weddingDate, .budget, .guests, .tasks{
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
