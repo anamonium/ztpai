@@ -1,0 +1,148 @@
+.checklist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.task{
+    display: flex;
+    background: linear-gradient(180deg, #B2D9CD 0%, rgba(178, 217, 205, 0.5) 0.01%, rgba(125, 162, 151, 0.7) 100%);
+    box-shadow: dimgray 3px 3px;
+    width: 80%;
+    border-radius: 10px;
+    align-items: center;
+    padding: 1em 1em 1em 1em;
+    margin-top: 1.5em;
+}
+
+.checkSquare{
+    font-size: 0.75em;
+    width: 5%;
+    margin-left: 1.2em;
+}
+
+.taskContent{
+    font-size: 1.25em;
+    width: 85%;
+}
+
+.deleteTask{
+    font-size: 0.5em;
+    justify-content: space-around;
+    display: flex;
+    width: 8%;
+}
+
+#checkButton{
+    background: none;
+    width: inherit;
+    height: inherit;
+    padding: 0em;
+    margin: 0em;
+    line-height: 0em;
+}
+
+#tcInput{
+    width: 55vw;
+    background: #E2CBD0;
+    border-radius: 10px;
+    box-shadow: dimgray 3px 3px;
+}
+
+#taInput{
+    width: 10vw;
+    background: #7DA297;
+    border-radius: 10px;
+    box-shadow: dimgray 3px 3px;
+}
+
+.addTask{
+    display: flex;
+    margin-top: 3em;
+}
+
+.addTa{
+    display: flex;
+    flex-direction: inherit;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    background: inherit;
+    border-radius: inherit;
+    padding: inherit;
+}
+
+.chCon{
+    width: inherit;
+    height: inherit;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checklistInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#completed, #all{
+    margin: 1.5em;
+}
+
+.overview>div{
+    display: flex;
+    margin-right: 10em;
+}
+
+.overview{
+    display: flex;
+}
+
+@media only screen and (max-device-width: 420px) {
+    main {
+        flex-direction: column;
+    }
+
+    .menuBar {
+        width: 100vw;
+    }
+
+    h1, span{
+        font-size: 1.3em;
+    }
+
+    span{
+        text-align: center;
+        margin: 1em;
+    }
+
+    .overview{
+        width: 100vw;
+    }
+
+    .checkSquare{
+        margin-left: 0.1em;
+    }
+
+    .taskContent{
+        margin-left: 0.4em;
+    }
+
+    .addTask{
+        flex-direction: column;
+    }
+
+    #taInput, #tcInput{
+        width: 70vw;
+    }
+
+    #allTasks, #tasksCompleted{
+        padding-top: 1em;
+    }
+
+}

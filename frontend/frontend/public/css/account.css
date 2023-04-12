@@ -1,0 +1,49 @@
+section{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.accou{
+    width: 50em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.userDetail{
+    font-size: 2.5em;
+    margin: 1em;
+}
+
+.budgetChanger, .weddingDateChanger{
+    font-size: 2em;
+    margin: 1em;
+}
+
+button{
+    margin: 1em;
+    background: #7DA297;
+    box-shadow: dimgray 3px 3px;
+    font-size: 1.5em;
+    height: 3em;
+}
+
+.fa-pencil{
+    font-size: 1em;
+}
+
+@media only screen and (max-device-width: 420px) {
+    main {
+        flex-direction: column;
+    }
+
+    .menuBar {
+        width: 100vw;
+    }
+
+    .budgetChanger, .weddingDateChanger {
+        font-size: 1.5em;
+    }
+}
