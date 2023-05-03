@@ -1,22 +1,13 @@
 package com.project.marimay.repository;
 
-import com.project.marimay.models.Task;
+import com.project.marimay.models.Checklist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@Repository
-public interface ChecklistRepository extends JpaRepository<Task, String> {
-    @Query("Select t from Task t where t.idChecklist= ?1")
-    List<Task> findTaskByIdChecklistEquals(
-            String idChecklist
-    );
-
-    @Query("Select t from Task t where t.idChecklist= ?1 and t.status = ?2")
-    List<Task> findTaskByIdChecklistEqualsAndStatusEquals(
-            String idChecklist,
-            Boolean status
-    );
+public interface ChecklistRepository extends JpaRepository<Checklist, UUID> {
+    @Query("select ch from Checklist ch where ch.id = (select u.id from Users u where u.email = ?1)")
+    Optional<Checklist> findByIdEquals(String userEmail);
 }

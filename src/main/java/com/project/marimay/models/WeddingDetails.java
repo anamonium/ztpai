@@ -1,95 +1,61 @@
 package com.project.marimay.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
-@Entity
-@Table(name = "wedding_details", schema = "public", catalog = "postgres")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "WeddingDetails")
+@Table(name = "wedding_details")
 public class WeddingDetails {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id_wedding_details")
-    private String idWeddingDetails;
-    @Basic
+    @Column(name = "id")
+    private UUID id;
+
     @Column(name = "wedding_date")
-    private Date weddingDate;
-    @OneToOne(mappedBy = "weddingDetailsByIdBudget")
-    private Budget budgetByIdWeddingDetails;
-    @OneToOne(mappedBy = "weddingDetailsByIdChecklist")
-    private Checklist checklistByIdWeddingDetails;
-    @OneToOne(mappedBy = "weddingDetailsByIdGuestList")
-    private GuestList guestListByIdWeddingDetails;
-    @OneToOne
-    @JoinColumn(name = "id_wedding_details", referencedColumnName = "id_user", nullable = false)
-    private Users usersByIdWeddingDetails;
+    private LocalDate weddingDate;
 
-    public String getIdWeddingDetails() {
-        return idWeddingDetails;
-    }
+    @Column(name = "wedding_budget")
+    private Double weddingBudget;
+    @OneToOne(
+            mappedBy = "weddingDetails",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private Budget budget;
+    @OneToOne(
+            mappedBy = "weddingDetails",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private Checklist checklist;
+    @OneToOne(
+            mappedBy = "weddingDetails",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private GuestList guestlist;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "user_id_fk"
+            )
+    )
+    @MapsId
+    private Users user;
 
-    public void setIdWeddingDetails(String idWeddingDetails) {
-        this.idWeddingDetails = idWeddingDetails;
-    }
-
-    public Date getWeddingDate() {
-        return weddingDate;
-    }
-
-    public void setWeddingDate(Date weddingDate) {
-        this.weddingDate = weddingDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        WeddingDetails that = (WeddingDetails) o;
-
-        if (idWeddingDetails != null ? !idWeddingDetails.equals(that.idWeddingDetails) : that.idWeddingDetails != null)
-            return false;
-        if (weddingDate != null ? !weddingDate.equals(that.weddingDate) : that.weddingDate != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idWeddingDetails != null ? idWeddingDetails.hashCode() : 0;
-        result = 31 * result + (weddingDate != null ? weddingDate.hashCode() : 0);
-        return result;
-    }
-
-    public Budget getBudgetByIdWeddingDetails() {
-        return budgetByIdWeddingDetails;
-    }
-
-    public void setBudgetByIdWeddingDetails(Budget budgetByIdWeddingDetails) {
-        this.budgetByIdWeddingDetails = budgetByIdWeddingDetails;
-    }
-
-    public Checklist getChecklistByIdWeddingDetails() {
-        return checklistByIdWeddingDetails;
-    }
-
-    public void setChecklistByIdWeddingDetails(Checklist checklistByIdWeddingDetails) {
-        this.checklistByIdWeddingDetails = checklistByIdWeddingDetails;
-    }
-
-    public GuestList getGuestListByIdWeddingDetails() {
-        return guestListByIdWeddingDetails;
-    }
-
-    public void setGuestListByIdWeddingDetails(GuestList guestListByIdWeddingDetails) {
-        this.guestListByIdWeddingDetails = guestListByIdWeddingDetails;
-    }
-
-    public Users getUsersByIdWeddingDetails() {
-        return usersByIdWeddingDetails;
-    }
-
-    public void setUsersByIdWeddingDetails(Users usersByIdWeddingDetails) {
-        this.usersByIdWeddingDetails = usersByIdWeddingDetails;
-    }
 }

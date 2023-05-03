@@ -1,88 +1,46 @@
 package com.project.marimay.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
-@Entity
-@Table(name = "guest_list", schema = "public", catalog = "postgres")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "GuestList")
+@Table(name = "guest_list")
 public class GuestList {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id_guest_list")
-    private String idGuestList;
+    @Column(name = "id")
+    private UUID id;
     @Basic
     @Column(name = "invited")
     private Integer invited;
     @Basic
     @Column(name = "accepted")
     private Integer accepted;
-    @OneToOne
-    @JoinColumn(name = "id_guest_list", referencedColumnName = "id_wedding_details", nullable = false)
-    private WeddingDetails weddingDetailsByIdGuestList;
-    @OneToMany(mappedBy = "guestListByIdGuestlist")
-    private Collection<Guests> guestsByIdGuestList;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "wedding_details",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "wedding_details_id_fk"
+            )
+    )
+    @MapsId
+    private WeddingDetails weddingDetails;
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            mappedBy = "guestList",
+            fetch = FetchType.LAZY
+    )
+    private List<Guests> guests;
 
-    public String getIdGuestList() {
-        return idGuestList;
-    }
-
-    public void setIdGuestList(String idGuestList) {
-        this.idGuestList = idGuestList;
-    }
-
-    public Integer getInvited() {
-        return invited;
-    }
-
-    public void setInvited(Integer invited) {
-        this.invited = invited;
-    }
-
-    public Integer getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(Integer accepted) {
-        this.accepted = accepted;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GuestList guestList = (GuestList) o;
-
-        if (idGuestList != null ? !idGuestList.equals(guestList.idGuestList) : guestList.idGuestList != null)
-            return false;
-        if (invited != null ? !invited.equals(guestList.invited) : guestList.invited != null) return false;
-        if (accepted != null ? !accepted.equals(guestList.accepted) : guestList.accepted != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idGuestList != null ? idGuestList.hashCode() : 0;
-        result = 31 * result + (invited != null ? invited.hashCode() : 0);
-        result = 31 * result + (accepted != null ? accepted.hashCode() : 0);
-        return result;
-    }
-
-    public WeddingDetails getWeddingDetailsByIdGuestList() {
-        return weddingDetailsByIdGuestList;
-    }
-
-    public void setWeddingDetailsByIdGuestList(WeddingDetails weddingDetailsByIdGuestList) {
-        this.weddingDetailsByIdGuestList = weddingDetailsByIdGuestList;
-    }
-
-    public Collection<Guests> getGuestsByIdGuestList() {
-        return guestsByIdGuestList;
-    }
-
-    public void setGuestsByIdGuestList(Collection<Guests> guestsByIdGuestList) {
-        this.guestsByIdGuestList = guestsByIdGuestList;
-    }
 }

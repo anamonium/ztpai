@@ -1,25 +1,24 @@
 package com.project.marimay.repository;
 
+import com.project.marimay.models.GuestList;
 import com.project.marimay.models.Guests;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface GuestRepository extends JpaRepository<Guests, String> {
 
-    @Query("Select g FROM Guests g where g.idGuestlist = ?1")
-    List<Guests> findGuestsByIdGuestlistEquals(
-            String idGuestlist
+    @Query("Select g from Guests g where g.guestList= ?1")
+    List<Guests> findGuestsByGuestListEquals(
+            GuestList guestList
     );
 
-    @Query("Select g FROM Guests g where g.idGuestlist = ?1 and g.status = ?2 and g.plusOne = ?3")
-    List<Guests> findGuestsByIdGuestlistEqualsAAndStatusEqualsAAndPlusOneEquals(
-            String idGuestlist,
-            Boolean status,
-            Boolean plusOne
-    );
+    @Query("select g from Guests g where g.id = ?1")
+    Optional<Guests> findGuestById(UUID id);
 
 }

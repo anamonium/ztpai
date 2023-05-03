@@ -2,131 +2,102 @@ package com.project.marimay.models;
 
 import jakarta.persistence.*;
 
-@Entity
-public class Users {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "Users")
+@Table(
+        name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+        }
+)
+public class Users implements UserDetails {
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Id
-    @Column(name = "id_user")
-    private String idUser;
-    @Basic
-    @Column(name = "email")
+    @Column(name = "id")
+    private UUID id;
+
+    @Column(
+            name = "email",
+            nullable = false
+    )
     private String email;
-    @Basic
-    @Column(name = "password")
+
+    @Column(
+            name = "password",
+            nullable = false
+    )
     private String password;
-    @Basic
-    @Column(name = "enabled")
-    private Boolean enabled;
-    @Basic
-    @Column(name = "salt")
-    private String salt;
-    @Basic
-    @Column(name = "created_at")
-    private String createdAt;
-    @OneToOne(mappedBy = "usersByIdUser")
-    private Admins adminsByIdUser;
-    @OneToOne(mappedBy = "usersByIdUser")
-    private UserDetails userDetailsByIdUser;
-    @OneToOne(mappedBy = "usersByIdWeddingDetails")
-    private WeddingDetails weddingDetailsByIdUser;
 
-    public String getIdUser() {
-        return idUser;
-    }
+    @Column(
+            name = "role",
+            nullable = false
+    )
+    @Enumerated(EnumType.STRING) //ORDINAL = 1, 2, 3, itp.
+    private Role role;
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
+    @OneToOne(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private UsersDetails usersDetails;
+    @OneToOne(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private WeddingDetails weddingDetails;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Users users = (Users) o;
-
-        if (idUser != null ? !idUser.equals(users.idUser) : users.idUser != null) return false;
-        if (email != null ? !email.equals(users.email) : users.email != null) return false;
-        if (password != null ? !password.equals(users.password) : users.password != null) return false;
-        if (enabled != null ? !enabled.equals(users.enabled) : users.enabled != null) return false;
-        if (salt != null ? !salt.equals(users.salt) : users.salt != null) return false;
-        if (createdAt != null ? !createdAt.equals(users.createdAt) : users.createdAt != null) return false;
-
+    public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    public int hashCode() {
-        int result = idUser != null ? idUser.hashCode() : 0;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
-        result = 31 * result + (salt != null ? salt.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        return result;
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public Admins getAdminsByIdUser() {
-        return adminsByIdUser;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setAdminsByIdUser(Admins adminsByIdUser) {
-        this.adminsByIdUser = adminsByIdUser;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
-    public UserDetails getUserDetailsByIdUser() {
-        return userDetailsByIdUser;
-    }
-
-    public void setUserDetailsByIdUser(UserDetails userDetailsByIdUser) {
-        this.userDetailsByIdUser = userDetailsByIdUser;
-    }
-
-    public WeddingDetails getWeddingDetailsByIdUser() {
-        return weddingDetailsByIdUser;
-    }
-
-    public void setWeddingDetailsByIdUser(WeddingDetails weddingDetailsByIdUser) {
-        this.weddingDetailsByIdUser = weddingDetailsByIdUser;
-    }
 }

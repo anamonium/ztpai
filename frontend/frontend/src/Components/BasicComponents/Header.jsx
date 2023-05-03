@@ -6,7 +6,7 @@ function Header(){
     return <header>
         <div class = "pasek">
             <a href =" "><MenuIcon /></a>
-            <img id = "logo" src = {require("./img/logo.svg")} alt = "Marimay" />
+            <img id = "logo" src = {require("../../img/logo.svg")} alt = "Marimay" />
             <a href = " "><PersonIcon /></a>
         </div>
     </header>

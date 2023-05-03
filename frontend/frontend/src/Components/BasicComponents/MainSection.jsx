@@ -1,9 +1,9 @@
 import React from "react";
 
-function MainSection(){
+function MainSection(props){
     return <div className = "siter">
         <section>
-
+            {props.inside}
         </section>
     </div>
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DefaultPage from './Components/DefaultPage'
+import DefaultPage from './Components/BasicComponents/DefaultPage'
 
 ReactDOM.render(
     <div>

@@ -7,11 +7,10 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
 
-
 function Navigation(){
 
     return <nav className = "menuBar">
-        <img id = "flowers" src = {require("./img/images/login-flowers-kopia.png")} alt = "Flowers"></img>
+        <img id = "flowers" src = {require("../../img/images/login-flowers-kopia.png")} alt = "Flowers"></img>
         <ul>
             <NavListItem  name = "Overview" icon = {<SummarizeIcon />} />
             <NavListItem  name = "Checklist" icon = {<ChecklistIcon />} />

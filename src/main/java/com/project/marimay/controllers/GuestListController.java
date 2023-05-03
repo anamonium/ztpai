@@ -1,7 +1,10 @@
 package com.project.marimay.controllers;
 
+import com.project.marimay.dto.request.AddGuestRequest;
 import com.project.marimay.models.Guests;
 import com.project.marimay.repository.GuestRepository;
+import com.project.marimay.service.GuestlistService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,23 +13,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/guestlist")
 public class GuestListController {
     
-    private GuestRepository guestRepository;
+    private GuestlistService guestlistService;
 
-    @Autowired
-    public void setGuestRepository(GuestRepository guestRepository){
-        this.guestRepository = guestRepository;
-    }
     @GetMapping
-    public ResponseEntity<List<Guests>> guestList(){
+    public ResponseEntity<List<Guests>> guestList(
+            @RequestHeader("Authorization") String token
+    ){
         try{
 
-            String id = "10";
-            List<Guests> guests = guestRepository.findGuestsByIdGuestlistEquals(id);
+            List<Guests> guests = guestlistService.getGuestList(token);
 
             return new ResponseEntity<>(guests, HttpStatus.OK);
         }catch(Exception e){
@@ -35,17 +37,35 @@ public class GuestListController {
     }
 
     @PostMapping
-    public void addGuestListItem(){
-
+    public ResponseEntity addGuestListItem(
+            @RequestHeader("Authorization") String token,
+            @RequestBody AddGuestRequest request
+    ){
+        guestlistService.addGuest(token, request);
+        return ResponseEntity.ok(null);
     }
 
-    @PutMapping("/{item_id}")
-    public void changeStatus(@PathVariable String item_id){
+    @PutMapping("/st/{item_id}")
+    public ResponseEntity changeStatus(
+            @PathVariable UUID item_id
+    ){
+        guestlistService.changeStatus(item_id);
+        return ResponseEntity.ok(null);
+    }
 
+    @PutMapping("/po/{item_id}")
+    public ResponseEntity changePlusOne(
+            @PathVariable UUID item_id
+    ){
+        guestlistService.changePlusOne(item_id);
+        return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("/{item_id}")
-    public void deleteGuest(@PathVariable String item_id){
-
+    public ResponseEntity deleteGuest(
+            @PathVariable UUID item_id
+    ){
+        guestlistService.deleteGuest(item_id);
+        return ResponseEntity.ok(null);
     }
 }
