@@ -1,39 +1,49 @@
 const bItems = [
     {
-        "id_b_item": 10,
+        "id": 11,
         "name": "Wedding dress",
         "cost": 1000
     },
     {
-        "id_b_item": 10,
+        "id": 14,
         "name": "Wedding flowers",
         "cost": 100
     },
     {
-        "id_b_item": 10,
+        "id": 15,
         "name": "Reception venue",
         "cost": 2000
     },
     {
-        "id_b_item": 10,
+        "id": 20,
         "name": "Wedding cake",
         "cost": 200
     },
     {
-        "id_b_item": 10,
+        "id": 21,
         "name": "Transportation",
         "cost": 150
     },
     {
-        "id_b_item": 10,
+        "id": 22,
         "name": "Wedding invitations",
         "cost": 70
     },
     {
-        "id_b_item": 10,
+        "id": 25,
         "name": "Catering",
         "cost": 550
     },
+    {
+        "id": 24,
+        "name": "Catering",
+        "cost": 550
+    },
+    {
+        "id": 26,
+        "name": "Catering",
+        "cost": 550
+    }
 ]
 
 export default bItems;

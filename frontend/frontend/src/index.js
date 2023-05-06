@@ -1,10 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import DefaultPage from './Components/BasicComponents/DefaultPage'
+import { BrowserRouter } from 'react-router-dom';
+import App from './App'
+import { createRoot } from 'react-dom/client';
 
-ReactDOM.render(
-    <div>
-        <DefaultPage />
-    </div>,
-    document.getElementById("root")
+const container = document.getElementById('root');
+const root = createRoot(container); 
+root.render(
+    <BrowserRouter>
+        <App />
+     </BrowserRouter>
 );

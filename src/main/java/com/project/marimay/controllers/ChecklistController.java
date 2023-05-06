@@ -14,6 +14,7 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/checklist")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ChecklistController {
 
     private final ChecklistService checklistService;

@@ -3,9 +3,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function Task(props){
 
+    
     return<div className="task" id = "">
 
-        <div className="checkSquare">
+        <div className="checkSquare" onClick = {props.changeStatus}>
             {props.taskStatus}
         </div>
 
@@ -13,7 +14,7 @@ function Task(props){
             {props.taskContent}
         </div>
 
-        <div class="deleteTask">
+        <div class="deleteTask" onClick = {props.deleteTask}>
             <DeleteIcon />
         </div>
 
