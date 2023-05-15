@@ -25,7 +25,7 @@ public class GuestlistService {
         return guestRepository.findGuestsByGuestListEquals(guestList);
     }
 
-    public void addGuest(String token, AddGuestRequest request){
+    public UUID addGuest(String token, AddGuestRequest request){
         String username = jwtService.extractUsername(token.substring(7));
         GuestList guestList = guestListRepository.findByIdEquals(username).orElse(null);
 
@@ -42,6 +42,8 @@ public class GuestlistService {
 
         guestList.setInvited(guestList.getInvited() + 1);
         guestListRepository.save(guestList);
+
+        return guest.getId();
     }
 
     public void changePlusOne(UUID guestId){

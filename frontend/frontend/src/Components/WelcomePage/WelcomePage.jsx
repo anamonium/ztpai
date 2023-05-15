@@ -17,12 +17,12 @@ function WelcomePage(){
             </div>
             <div className = "buttons">
                 <Button 
-                    id = "signInButton" 
+                    id = "signIn" 
                     href="/signin"
                     variant="contained"
                 >Sign in</Button>
                 <Button 
-                    id = "loginButton"
+                    id = "logIn"
                     href = "/login"
                     variant="outlined"
                 
@@ -45,7 +45,7 @@ function WelcomePage(){
         <div className = "icons">
             
                 <div>
-                    <div clasName = "header">
+                    <div className = "header">
                         <PeopleAltIcon />
                         <h4>Managing 
                             guestlist</h4>
@@ -95,7 +95,7 @@ function WelcomePage(){
             <h3>No hidden costs.
                 Everything is for free!</h3>
             <Button 
-                id = "signInbutton" 
+                id = "logIn"
                 href = "/signin"
                 variant="contained"
             >Sign in</Button>

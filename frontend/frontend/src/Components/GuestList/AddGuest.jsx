@@ -1,12 +1,12 @@
 import { Fab, Zoom } from "@mui/material";
 import React, {useState} from "react";
 
-function AddGuest(){
+function AddGuest(props){
 
     const [isExpanded, setExpanded] = useState(false);
 
     const [guest, setGuest] = useState({
-        title: "",
+        name: "",
         surname: "",
         phone: ""
       });
@@ -27,12 +27,12 @@ function AddGuest(){
       }
 
     function submitGuest(event){
-
-        if(guest.name !== "" && guest.surname !== "" && guest.phone !== ""){
-            setGuest(guest.name = "");
-            setGuest(guest.surname = "");
-            setGuest(guest.phone = "");
-        }
+        props.addGuest(guest);
+        setGuest({
+          name: "",
+          surname: "",
+          phone: ""
+        });
         setExpanded(false);
 
     }
@@ -60,7 +60,7 @@ function AddGuest(){
           <input
             name="phone"
             onChange={handleChange}
-            value={guest.cost}
+            value={guest.phone}
             placeholder="Phone"
           />
         )}

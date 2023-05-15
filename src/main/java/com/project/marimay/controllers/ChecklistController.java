@@ -4,8 +4,9 @@ import com.project.marimay.dto.request.AddTaskRequest;
 import com.project.marimay.models.Task;
 import com.project.marimay.service.ChecklistService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,25 +19,37 @@ import java.util.UUID;
 public class ChecklistController {
 
     private final ChecklistService checklistService;
+
+    @GetMapping("/test")
+    public ResponseEntity<?> getChecklist() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+
+        // Tworzenie ResponseEntity z nagłówkiem i kodem odpowiedzi
+        ResponseEntity<?> responseEntity = new ResponseEntity<>("Response Body", headers, HttpStatus.OK);
+        return responseEntity;
+    }
     @GetMapping()
     public ResponseEntity<List<Task>> checkList(
             @RequestHeader("Authorization") String token
     ){
+        System.out.println("I am in checkList");
         List<Task> tasks = checklistService.getChecklist(token);
         return ResponseEntity.ok(tasks);
     }
 
-    @PostMapping()
-    public ResponseEntity addListItem(
+    @PostMapping("/add")
+    public ResponseEntity<?> addListItem(
             @RequestHeader("Authorization") String token,
             @RequestBody AddTaskRequest request
     ){
-        checklistService.addTask(token, request);
-        return ResponseEntity.ok(null);
+        UUID id = checklistService.addTask(token, request);
+        return ResponseEntity.ok(id);
     }
 
     @PutMapping("/{item_id}")
-    public ResponseEntity changeStatus(
+    public ResponseEntity<?> changeStatus(
             @PathVariable UUID item_id
     ){
         checklistService.changeTaskStatus(item_id);
@@ -44,7 +57,7 @@ public class ChecklistController {
     }
 
     @DeleteMapping("/{item_id}")
-    public ResponseEntity deleteItem(
+    public ResponseEntity<?> deleteItem(
             @PathVariable UUID item_id
     ){
         checklistService.deleteTask(item_id);

@@ -1,7 +1,7 @@
 import { Fab, Zoom } from "@mui/material";
 import React, {useState} from "react";
 
-function AddBudgetItem(){
+function AddBudgetItem(props){
 
     const [isExpanded, setExpanded] = useState(false);
 
@@ -26,12 +26,16 @@ function AddBudgetItem(){
       }
 
     function submitCost(event){
+        props.addBudget(bItem);
         setExpanded(false)
-        setBItem(bItem.name = "");
-        setBItem(bItem.cost = "");
+        setBItem({
+          title: "",
+          cost: ""
+        });
+        
     }
 
-    return <div>
+    return <div className = "abi">
         <form className="add">
         {isExpanded && (
           <input

@@ -25,7 +25,7 @@ function LoginPage(){
           .then(function (response) {
             console.log(response.data.token);
             sessionStorage.setItem('token', response.data.token);
-            //window.location.href = '/overview';
+            window.location.href = '/overview';
           })
           .catch(function (error) {
             console.log("Brak dostepu");
@@ -42,7 +42,7 @@ function LoginPage(){
             <div className = "loginPhoto">
                 <Link to = "/"><img src = {require("../img/logo.svg")} alt = "marimay"/></Link>
             </div>
-            <form action = "login" method = "POST">
+            <form className="tmp">
                 Log in
                 <input 
                     name = "email" 
@@ -60,8 +60,8 @@ function LoginPage(){
                 />
                 <Button onClick = {handleLogin}>Log in</Button>
             </form>
-            Don't have an account?
-            <Button href = "/signin" >Sign in</Button>
+            <div className="sigin">Don't have an account?</div>
+            <Button href = "/signin" className = "sButt">Sign in</Button>
         </div>
     </div>
 }

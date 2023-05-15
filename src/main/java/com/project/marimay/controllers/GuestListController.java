@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/guestlist")
+@CrossOrigin(origins = "http://localhost:3000")
 public class GuestListController {
     
     private GuestlistService guestlistService;
@@ -37,16 +38,16 @@ public class GuestListController {
     }
 
     @PostMapping
-    public ResponseEntity addGuestListItem(
+    public ResponseEntity<?> addGuestListItem(
             @RequestHeader("Authorization") String token,
             @RequestBody AddGuestRequest request
     ){
-        guestlistService.addGuest(token, request);
-        return ResponseEntity.ok(null);
+        UUID id = guestlistService.addGuest(token, request);
+        return ResponseEntity.ok(id);
     }
 
     @PutMapping("/st/{item_id}")
-    public ResponseEntity changeStatus(
+    public ResponseEntity<?> changeStatus(
             @PathVariable UUID item_id
     ){
         guestlistService.changeStatus(item_id);
@@ -54,7 +55,7 @@ public class GuestListController {
     }
 
     @PutMapping("/po/{item_id}")
-    public ResponseEntity changePlusOne(
+    public ResponseEntity<?> changePlusOne(
             @PathVariable UUID item_id
     ){
         guestlistService.changePlusOne(item_id);
@@ -62,7 +63,7 @@ public class GuestListController {
     }
 
     @DeleteMapping("/{item_id}")
-    public ResponseEntity deleteGuest(
+    public ResponseEntity<?> deleteGuest(
             @PathVariable UUID item_id
     ){
         guestlistService.deleteGuest(item_id);

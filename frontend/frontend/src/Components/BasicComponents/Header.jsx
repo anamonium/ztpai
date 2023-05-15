@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 function Header(props){
 
     return <header>
-        <div class = "pasek">
+        <div className = "pasek">
             <Button 
                 onClick = {props.hideNav}
                 size="small"

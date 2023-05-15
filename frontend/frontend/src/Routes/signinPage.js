@@ -13,6 +13,8 @@ function SignInPage(){
 
     async function handleRegistry(){
 
+        if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username) && password === repeatPassword){}
+
         const options = {
             method: 'POST',
             url: 'http://localhost:8080/signin',
@@ -48,7 +50,7 @@ function SignInPage(){
                 <a href = "welcomePage"> <img src = {require("../img/logo.svg")} alt = "marimay"/></a>
             </div>
             <div className ="login-container">
-                <form id = "signinForm" action = "sign" method = "POST">
+                <form className = "tmp">
                     Sign in
                     <input 
                         name = "name" 
@@ -70,6 +72,11 @@ function SignInPage(){
                         placeholder="e-mail" 
                         value = {username}
                         onChange = {e => setUsername(e.target.value)}
+                        style = {{border:
+                            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username) && username !== ""
+                              ? "2px solid red"
+                              : "none",
+                        }}
                     />
                     <input
                         name = "password" 
@@ -84,11 +91,17 @@ function SignInPage(){
                         placeholder="repeat password"
                         value = {repeatPassword}
                         onChange = {e => setRepeatPassword(e.target.value)}
+                        style={{
+                            border:
+                              repeatPassword !== password && repeatPassword !== ""
+                                ? "2px solid red"
+                                : "none",
+                          }}
                     />
                     <Button onClick = {handleRegistry}>Sign in</Button>
                 </form>
             </div>
-            Already have an account?
+            <div className = "sigin">Already have an account?</div>
             <Button href = "/login" >Log in</Button>
         </div>
     </div>

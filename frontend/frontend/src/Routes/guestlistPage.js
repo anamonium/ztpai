@@ -3,7 +3,6 @@ import Navigation from "../Components/Navigation/Navigation";
 import InfoSection from "../Components/BasicComponents/InfoSection";
 import GuestList from "../Components/GuestList/GuestList";
 import Header from "../Components/BasicComponents/Header"
-import AddGuest from "../Components/GuestList/AddGuest";
 import '../Css/guestList.css'
 import '../Css/mainPage.css'
 
@@ -24,7 +23,6 @@ function GuestListPage(){
                 <div className = "inside">
                     <InfoSection />
                     <GuestList />
-                    <AddGuest />
                 </div>
             </main>
     </div>

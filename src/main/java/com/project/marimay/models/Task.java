@@ -23,7 +23,10 @@ public class Task {
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "content")
+    @Column(
+            name = "content",
+            columnDefinition = "TEXT"
+    )
     private String content;
 
     @Column(name = "title")

@@ -5,7 +5,7 @@ import Header from "../Components/BasicComponents/Header"
 import '../Css/account.css'
 import '../Css/mainPage.css'
 
-function AccountPage(){
+function AccountPage(props){
 
     const [isNavVisible, setNavVisible] = useState(true);
 
@@ -20,9 +20,7 @@ function AccountPage(){
             <main>
                 {isNavVisible && <Navigation />}
                 <Account 
-                    name = {"Sam Wall"}
-                    beginningBudget = {10000}
-                    date = {null}
+                    token = {props.token}
 
                 />
             </main>

@@ -3,7 +3,6 @@ import Navigation from "../Components/Navigation/Navigation";
 import InfoSection from "../Components/BasicComponents/InfoSection";
 import Header from "../Components/BasicComponents/Header"
 import Checklist from "../Components/CheckList/Checklist"
-import AddTask from "../Components/CheckList/AddTask";
 import '../Css/mainPage.css'
 import '../Css/checklist.css'
 
@@ -24,7 +23,6 @@ function CheckListPage(){
                 <div className = "inside">
                     <InfoSection />
                     <Checklist />
-                    <AddTask />
                 </div>
             </main>
     </div>

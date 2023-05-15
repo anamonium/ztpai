@@ -2,6 +2,7 @@ section{
     height: 100%;
     display: flex;
     justify-content: center;
+    
 }
 
 .accou{
@@ -10,24 +11,47 @@ section{
     align-items: center;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .userDetail{
     font-size: 2.5em;
     margin: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userDetail > svg{
+    font-size: 3em;
+}
+
+.react-datepicker__input-container > input{
+    border-radius: 15px;
+    background: transparent;
+    outline: ridge;
+    font-size: 1.5em;
+    font-family: inherit;
+}
+
+.infos{
+    width: auto;
+    margin-top: 0em;
 }
 
 .budgetChanger, .weddingDateChanger{
     font-size: 2em;
-    margin: 1em;
+    display: flex;
+    align-items: center;
 }
 
-button{
+button, #logOutButton{
     margin: 1em;
     background: #7DA297;
     box-shadow: dimgray 3px 3px;
     font-size: 1.5em;
     height: 3em;
+    width: 20em;
 }
 
 .fa-pencil{

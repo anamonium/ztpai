@@ -11,12 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Builder
-public class WeddingDetailsResponse {
-    LocalDate weddingDate;
-    Double budgetSpend;
-    Double beginningBudget;
-    Integer subtaskDone;
-    Integer allSubtask;
-    Integer guestsAccepted;
-    Integer guestsInvited;
+public class AccountResponse {
+    private Double budget;
+    private LocalDate weddingDate;
+    private String name;
 }

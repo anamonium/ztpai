@@ -4,11 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function Guest(props){
 
     return <tr id = "">
-        <td class = "gName">{props.guestName}</td>
-        <td class = "gPlusOne" onClick= {props.changePlusOne} >{props.plusOne}</td>
-        <td class = "gStatus" onClick= {props.changeStatus} >{props.guestStatus}</td>
-        <td class = "gPhone">{props.guestPhone}</td>
-        <td class = "removeGuest" onClick={props.deleteGuest }><DeleteIcon/></td>
+        <td className = "gName">{props.guestName}</td>
+        <td className = "gPlusOne" onClick= {props.changePlusOne} >{props.plusOne}</td>
+        <td className = "gStatus" onClick= {props.changeStatus} >{props.guestStatus}</td>
+        <td className = "gPhone">{props.guestPhone}</td>
+        <td className = "removeGuest" onClick={props.deleteGuest }><DeleteIcon/></td>
     </tr>
 }
 

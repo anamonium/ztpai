@@ -11,7 +11,8 @@ import SignInPage from './Routes/signinPage';
 
 function App(){
 
-   const isAuthenticated = sessionStorage.getItem('token') !== null;
+     const token = sessionStorage.getItem('token');
+     const isAuthenticated = token !== "";
 
     return (
        <>
@@ -22,13 +23,13 @@ function App(){
                   element={<WelcomePage />} > </Route>
              <Route 
                   path="/login" 
-                  element = { <LoginPage /> } > </Route>
+                  element = {!isAuthenticated ? <LoginPage /> : <Navigate to = "/overview" /> } > </Route>
              <Route 
                   path="/signin" 
                   element = {<SignInPage />} > </Route>
              <Route 
                   path="/account"
-                  element={isAuthenticated ? <AccountPage /> : <Navigate to="/login" />} > </Route>
+                  element={isAuthenticated ? <AccountPage token = {token}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/overview" 
                   element = {isAuthenticated ? <OverviewPage /> : <Navigate to="/login" />} > </Route>

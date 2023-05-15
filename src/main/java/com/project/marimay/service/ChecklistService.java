@@ -27,7 +27,7 @@ public class ChecklistService {
         return taskRepository.findTaskByIdChecklistEquals(checklist);
     }
 
-    public void addTask(String token, AddTaskRequest request){
+    public UUID addTask(String token, AddTaskRequest request){
         String username = jwtService.extractUsername(token.substring(7));
         Checklist checklist = checklistRepository.findByIdEquals(username).orElse(null);
 
@@ -42,6 +42,8 @@ public class ChecklistService {
 
         checklist.setAllSubtask(checklist.getAllSubtask() + 1);
         checklistRepository.save(checklist);
+
+        return task.getId();
     }
 
     public void changeTaskStatus(UUID taskId){

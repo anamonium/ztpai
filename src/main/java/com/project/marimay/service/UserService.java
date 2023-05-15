@@ -2,7 +2,9 @@ package com.project.marimay.service;
 
 import com.project.marimay.dto.request.AuthenticationRequest;
 import com.project.marimay.dto.request.RegisterRequest;
+import com.project.marimay.dto.response.AccountResponse;
 import com.project.marimay.dto.response.AuthenticationResponse;
+import com.project.marimay.dto.response.WeddingDetailsResponse;
 import com.project.marimay.models.*;
 import com.project.marimay.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -92,23 +94,55 @@ public class UserService {
 
     }
 
-    public void savUs(Users u){
-        userRepository.save(u);
-    }
-
     public Users getByEm(String email){
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public void changeWeddingDate(Users user, LocalDate newDate){
-        WeddingDetails wd = weddingDetailsRepository.findById(user.getId()).orElse(null);
+    public void changeWeddingDate(String token, LocalDate newDate){
+        String username = jwtService.extractUsername(token.substring(7));
+        WeddingDetails wd = weddingDetailsRepository.findByIdEquals(username).orElse(null);
         wd.setWeddingDate(newDate);
         weddingDetailsRepository.save(wd);
     }
 
-    public void changeBudget(Users user, Double newBudget){
-        WeddingDetails wd = weddingDetailsRepository.findById(user.getId()).orElse(null);
+    public void changeBudget(String token, Double newBudget){
+        String username = jwtService.extractUsername(token.substring(7));
+        WeddingDetails wd = weddingDetailsRepository.findByIdEquals(username).orElse(null);
         wd.setWeddingBudget(newBudget);
         weddingDetailsRepository.save(wd);
+    }
+
+    public WeddingDetailsResponse getOverview(String token){
+        String username = jwtService.extractUsername(token.substring(7));
+        WeddingDetails wd = weddingDetailsRepository.findByIdEquals(username).orElse(null);
+        Checklist ch = checklistRepository.findByIdEquals(username).orElse(null);
+        Budget b = budgetRepository.findByIdUser(username).orElse(null);
+        GuestList g = guestRepository.findByIdEquals(username).orElse(null);
+
+        WeddingDetailsResponse wwd = WeddingDetailsResponse.builder()
+                .weddingDate(wd.getWeddingDate())
+                .beginningBudget(wd.getWeddingBudget())
+                .budgetSpend(b.getBudgetSpend())
+                .allSubtask(ch.getAllSubtask())
+                .subtaskDone(ch.getSubtaskDone())
+                .guestsInvited(g.getInvited())
+                .guestsAccepted(g.getAccepted())
+                .build();
+
+        return wwd;
+    }
+
+    public AccountResponse getAccount(String token){
+        String username = jwtService.extractUsername(token.substring(7));
+        WeddingDetails wd = weddingDetailsRepository.findByIdEquals(username).orElse(null);
+        UsersDetails us = userDetailsRepository.findByEmail(username).orElse(null);
+
+        AccountResponse ar = AccountResponse.builder()
+                .budget(wd.getWeddingBudget())
+                .weddingDate(wd.getWeddingDate())
+                .name(us.getName() + " " + us.getSurname())
+                .build();
+
+        return ar;
     }
 }

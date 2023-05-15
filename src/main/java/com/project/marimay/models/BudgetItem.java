@@ -21,7 +21,10 @@ public class BudgetItem {
     @Column(name = "id")
     private UUID id;
     @Basic
-    @Column(name = "name")
+    @Column(
+            name = "name",
+            columnDefinition = "TEXT"
+    )
     private String name;
     @Basic
     @Column(name = "cost")

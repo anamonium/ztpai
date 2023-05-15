@@ -15,6 +15,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/budget")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class BudgetController {
 
     private BudgetService budgetService;
@@ -27,16 +28,16 @@ public class BudgetController {
     }
 
     @PostMapping()
-    public ResponseEntity addNewBudgetItem(
+    public ResponseEntity<?> addNewBudgetItem(
             @RequestHeader("Authorization") String token,
             @RequestBody AddBudgetItemRequest request
     ){
-        budgetService.addBudgetItem(token, request);
-        return ResponseEntity.ok(null);
+        UUID id = budgetService.addBudgetItem(token, request);
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id_item}")
-    public ResponseEntity deleteBudgetItem(
+    public ResponseEntity<?> deleteBudgetItem(
             @PathVariable UUID id_item
     ){
         budgetService.deleteBudgetItem(id_item);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
@@ -28,18 +29,5 @@ public class UserController {
             @RequestBody RegisterRequest request
     ){
         return ResponseEntity.ok(userService.register(request));
-    }
-
-    @GetMapping("/random")
-    public String random(){
-        Users users = Users.builder()
-                .email("em.com")
-                .password("pass")
-                .role(Role.USER)
-                .build();
-
-        userService.savUs(users);
-        Users u2 = userService.getByEm("em.com");
-        return u2.getUsername() + " "+ u2.getPassword() + " " + u2.getRole().name();
     }
 }

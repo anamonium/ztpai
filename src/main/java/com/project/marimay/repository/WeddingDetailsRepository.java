@@ -11,4 +11,6 @@ public interface WeddingDetailsRepository extends JpaRepository<WeddingDetails, 
     @Override
     Optional<WeddingDetails> findById(UUID uuid);
 
+    @Query("select w from WeddingDetails w where w.id = (select u.id from Users u where u.email = ?1)")
+    Optional<WeddingDetails> findByIdEquals(String userEmail);
 }

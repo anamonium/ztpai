@@ -25,7 +25,7 @@ public class BudgetService {
         return budgetRepository.findByBudget(budget);
     }
 
-    public void addBudgetItem(String token, AddBudgetItemRequest request){
+    public UUID addBudgetItem(String token, AddBudgetItemRequest request){
 
         String username = jwtService.extractUsername(token.substring(7));
         Budget budget = budgetRepository.findByIdUser(username).orElse(null);
@@ -41,6 +41,8 @@ public class BudgetService {
         assert budget != null;
         budget.setBudgetSpend(budget.getBudgetSpend() + budgetItem.getCost());
         budgetRepository.save(budget);
+
+        return budgetItem.getId();
     }
 
     public void deleteBudgetItem(UUID id){

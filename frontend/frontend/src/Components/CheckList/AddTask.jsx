@@ -1,7 +1,7 @@
 import { Fab, Zoom } from "@mui/material";
 import React, {useState} from "react";
 
-function AddTask(){
+function AddTask(props){
 
     const [isExpanded, setExpanded] = useState(false);
 
@@ -26,10 +26,13 @@ function AddTask(){
       }
 
     function submitTask(event){
-        setTask(task.title = "");
-        setTask(task.content = "");
+        props.addTask(task);
+        setTask({
+          title: "",
+          content: ""
+        });
+        event.preventDefault();
         setExpanded(false);
-
     }
 
     return <div>
