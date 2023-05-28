@@ -2,6 +2,7 @@ package com.project.marimay.service;
 
 import com.project.marimay.dto.request.AddTaskRequest;
 import com.project.marimay.models.Checklist;
+import com.project.marimay.models.GuestList;
 import com.project.marimay.models.Task;
 import com.project.marimay.repository.ChecklistRepository;
 import com.project.marimay.repository.TaskRepository;
@@ -9,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -71,6 +70,17 @@ public class ChecklistService {
         checklistRepository.save(checklist);
 
         taskRepository.delete(task);
+    }
+
+    public Map<String, Integer> getSummary(String token){
+        String username = jwtService.extractUsername(token.substring(7));
+        Checklist checklist = checklistRepository.findByIdEquals(username).orElse(null);
+
+        Map<String, Integer> summary = new HashMap<>();
+        summary.put("all", checklist.getAllSubtask());
+        summary.put("done", checklist.getSubtaskDone());
+
+        return summary;
     }
 
 }

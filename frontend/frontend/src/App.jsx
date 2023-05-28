@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import GuestListPage from './Routes/guestlistPage';
@@ -12,7 +12,12 @@ import SignInPage from './Routes/signinPage';
 function App(){
 
      const token = sessionStorage.getItem('token');
-     const isAuthenticated = token !== "";
+     const isAuthenticated = token !== null;
+     const [isNavVisible, setNavVisible] = useState(true);
+     
+     function toggleNav(){
+          setNavVisible(!isNavVisible);
+     }
 
     return (
        <>
@@ -29,19 +34,19 @@ function App(){
                   element = {<SignInPage />} > </Route>
              <Route 
                   path="/account"
-                  element={isAuthenticated ? <AccountPage token = {token}/> : <Navigate to="/login" />} > </Route>
+                  element={isAuthenticated ? <AccountPage isNavVisible = {isNavVisible} toggleNav = {toggleNav}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/overview" 
-                  element = {isAuthenticated ? <OverviewPage /> : <Navigate to="/login" />} > </Route>
+                  element = {isAuthenticated ? <OverviewPage isNavVisible = {isNavVisible} toggleNav = {toggleNav}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/checklist" 
-                  element = {isAuthenticated ? <CheckListPage /> : <Navigate to="/login" />} > </Route>
+                  element = {isAuthenticated ? <CheckListPage isNavVisible = {isNavVisible} toggleNav = {toggleNav}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/budget" 
-                  element = {isAuthenticated ? <BudgetPage /> : <Navigate to="/login" />} > </Route>
+                  element = {isAuthenticated ? <BudgetPage isNavVisible = {isNavVisible} toggleNav = {toggleNav}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/guestlist" 
-                  element={isAuthenticated ? <GuestListPage /> : <Navigate to="/login" />} > </Route>
+                  element={isAuthenticated ? <GuestListPage isNavVisible = {isNavVisible} toggleNav = {toggleNav}/> : <Navigate to="/login" />} > </Route>
              <Route 
                   path="/*" 
                   element = {isAuthenticated ? <OverviewPage /> : <Navigate to="/login" />} > </Route>

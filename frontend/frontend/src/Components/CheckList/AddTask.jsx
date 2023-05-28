@@ -26,6 +26,9 @@ function AddTask(props){
       }
 
     function submitTask(event){
+
+      if(task.content !== "" && task.title !== ""){
+
         props.addTask(task);
         setTask({
           title: "",
@@ -33,6 +36,7 @@ function AddTask(props){
         });
         event.preventDefault();
         setExpanded(false);
+      }
     }
 
     return <div>

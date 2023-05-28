@@ -2,32 +2,37 @@ import React, { useEffect, useState } from "react";
 import Guest from "./Guest";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import axios from "axios";
+import axiosInstance from "../axios-interceptors";
 import AddGuest from './AddGuest';
 
-function GuestList(){
+function GuestList(props){
     
     const[guests, setGuests] = useState([]);
-    const token = sessionStorage.getItem('token');
+    const[summary, setSummary] = useState({});
 
-    useEffect( () => {
-        fetchGuests();
-    }, [])
-
-    async function fetchGuests(){
-        return axios.get(
-            "/guestlist",{
-                headers: {
-                    "Authorization": 'Bearer ' + token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
-           ).then(res => {
-            console.log(res.data);
-            setGuests(res.data);
-           })
+    useEffect(() => {
+      fetchGuests();
+      fetchSummary();
+    }, []);
+    
+    async function fetchGuests() {
+      try {
+        const response = await axiosInstance.get("/guestlist");
+        setGuests(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
+
+    async function fetchSummary(){
+      try {
+        const response = await axiosInstance.get("/guestlist/summary")
+        setSummary(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
 
     function getGuests(guest){
         return <Guest 
@@ -42,94 +47,121 @@ function GuestList(){
         />
     }
 
-    function deleteGuest(id){
+    async function deleteGuest(id) {
 
-        axios.delete('/guestlist/' + id, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-              }
-        }).then(res => {
-            console.log("Task deleted successfully");
-            setGuests(guests.filter(guest => guest.id !== id));
-        })
+      try {
+        await axiosInstance.delete('/guestlist/' + id)
 
-    }
+        const deletedGuest = guests.find(guest => guest.id === id);
 
+        if (deletedGuest) {
+          const accepted = deletedGuest.status ? (deletedGuest.plusOne ? -2 : -1) : 0;
+          const invited = deletedGuest.plusOne ? -2 : -1;
 
-    function changeStatus(id){
+          setSummary({
+            invited: summary.invited + invited,
+            accepted: summary.accepted + accepted
+          });
+        }
 
-        axios.put('/guestlist/st/' + id, null, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-              }
-        }).then(res => {
-            console.log("Guest status changed");
-            setGuests(guests.map(guest => {
-                if (guest.id === id) {
-                    return {...guest, status: !guest.status};
-                } else {
-                    return guest;
-                }
-            }));
-        })
+        setGuests(guests.filter(guest => guest.id !== id));
+      } catch (error) {
+        console.error(error);
+      }
 
     }
 
-    //sprawdzic w bazie czy dziala 
-    function changePlusOne(id){
 
-        axios.put('/guestlist/po/' + id, null, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-              }
-        }).then(res => {
-            console.log("Guest plus one changed");
-            setGuests(guests.map(guest => {
-                if (guest.id === id) {
-                    return {...guest, plus_one: !guest.plus_one};
-                } else {
-                    return guest;
-                }
-            }));
-        })
-
-        
-    }
-
-    function addGuest(guest){
-
-        axios.post("/guestlist", {
-            firstName: guest.name,
-            lastName: guest.surname,
-            phone: guest.phone
-        }, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
+      async function changeStatus(id) {
+        try{
+          await axiosInstance.put('/guestlist/st/' + id)
+          setGuests(guests.map(guest => {
+            if (guest.id === id) {
+              const accepted = guest.status ? (guest.plusOne ? -2 : -1) : (guest.plusOne ? 2 : 1);
+              setSummary({
+                ...summary,
+                accepted: summary.accepted + accepted
+              })
+              return {...guest, status: !guest.status};
+            } else {
+              return guest;
             }
-        })
-        .then(res => {
-            const guestId = res.data;
-            
-            const updatedGuests = [...guests, { id: guestId, name: guest.name, surname: guest.surname, phone: guest.phone, status: false, plusOne: false }];
+          }));
+        }catch(error){
+          console.error(error);
+        }
+      }
 
-            setGuests(updatedGuests);
-        })
-        .catch(error => {
-            console.error(error);
+    async function changePlusOne(id) {
+
+      try{
+        await axiosInstance.put('/guestlist/po/' + id);
+        setGuests(guests.map(guest => {
+          if (guest.id === id) {
+            const invited = guest.plusOne ? -1 : 1;
+            const accepted = guest.status ? (guest.plusOne ? -1 : 1) : 0;
+            setSummary({
+              invited: summary.invited + invited,
+              accepted: summary.accepted + accepted
+            })
+            return {...guest, plusOne: !guest.plusOne};
+          } else {
+            return guest;
+          }
+        }));
+      }catch(error){
+        console.error(error);
+      }
+    }
+
+    async function addGuest(guest) {
+
+      try{
+        const response = await axiosInstance.post("/guestlist", {
+          firstName: guest.name,
+          lastName: guest.surname,
+          phone: guest.phone
         });
 
+        const updatedGuests = [...guests, {
+          id: response.data,
+          name: guest.name,
+          surname: guest.surname,
+          phone: guest.phone,
+          status: false,
+          plusOne: false
+        }];
+  
+        setGuests(updatedGuests);
+        setSummary({
+          ...summary,
+          invited: summary.invited
+        })
+
+
+      }catch(error){
+        console.error(error);
+      }
+
     }
+      
 
     return <div className = "ag">
+      <div className = "info">
+                        <h2>Guest list</h2>
+                        <span>Here you can store the information about your guests.</span>
+                        <div className = "guestListInfo">
+                            <div >
+                                <div id = "invited">Invited: {summary.invited}</div>
+                            </div>
+
+                            <div>
+                                <div id = "confirmed">Confirmed: {summary.accepted}</div>
+                            </div>
+                        </div>
+                    </div>
         <div className="guestList">
+          
             <table>
                 <thead>
                     <tr>

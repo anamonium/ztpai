@@ -27,6 +27,13 @@ public class BudgetController {
         return ResponseEntity.ok(budgetItems);
     }
 
+    @GetMapping("/summary")
+    public ResponseEntity<?> getSummary(
+            @RequestHeader("Authorization") String token
+    ){
+        return ResponseEntity.ok(budgetService.getSummary(token));
+    }
+
     @PostMapping()
     public ResponseEntity<?> addNewBudgetItem(
             @RequestHeader("Authorization") String token,

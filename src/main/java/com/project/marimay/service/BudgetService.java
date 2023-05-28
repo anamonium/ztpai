@@ -3,12 +3,15 @@ package com.project.marimay.service;
 import com.project.marimay.dto.request.AddBudgetItemRequest;
 import com.project.marimay.models.Budget;
 import com.project.marimay.models.BudgetItem;
+import com.project.marimay.models.WeddingDetails;
 import com.project.marimay.repository.BudgetItemRepository;
 import com.project.marimay.repository.BudgetRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -56,5 +59,17 @@ public class BudgetService {
         budgetItemRepository.delete(budgetItem);
     }
 
+    public Map<String, Double> getSummary(String token){
+        String username = jwtService.extractUsername(token.substring(7));
+        Budget budget = budgetRepository.findByIdUser(username).orElse(null);
+        WeddingDetails wd = budget.getWeddingDetails();
+
+        Map<String, Double> summary = new HashMap<>();
+        summary.put("spend", budget.getBudgetSpend());
+        summary.put("beginning", wd.getWeddingBudget());
+
+        return summary;
+
+    }
 
 }

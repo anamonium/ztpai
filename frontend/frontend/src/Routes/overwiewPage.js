@@ -1,4 +1,4 @@
-import React , {useState}from "react";
+import React from "react";
 import Navigation from "../Components/Navigation/Navigation";
 import InfoSection from "../Components/BasicComponents/InfoSection";
 import Overview from "../Components/Overview/Overview";
@@ -7,32 +7,17 @@ import '../Css/overview.css'
 import '../Css/mainPage.css'
 
 
-function OverviewPage(){
-    
-    const [isNavVisible, setNavVisible] = useState(true);
-
-
-    function toggleNav(){
-        setNavVisible(!isNavVisible);
-    }
+function OverviewPage(props){
 
     return <div className = "containerMain">
             <Header
-                hideNav = {toggleNav}
+                hideNav = {props.toggleNav}
             />
             <main>
-                {isNavVisible && <Navigation />}
+                {props.isNavVisible && <Navigation />}
                 <div className = "inside">
                     <InfoSection title = {"Overview"}/>
-                    <Overview 
-                        date = {null} 
-                        budgetLeft = {1000}
-                        beginnningBudget = {10000}
-                        guestsAccepted = {93}
-                        guestsInvited = {120}
-                        tasksCompleted = {42}
-                        allTasks = {60}
-                    />
+                    <Overview />
                 </div>
             </main>
     </div>

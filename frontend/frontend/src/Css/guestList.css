@@ -1,7 +1,7 @@
 .guestListInfo{
     display: flex;
     justify-content: space-evenly;
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
  .siter{
@@ -12,6 +12,16 @@
 
 .inside{
     overflow: auto;
+}
+
+.info > h2{
+    text-align: center;
+    font-size: 3.2em;
+}
+
+.info{
+    margin-top: 0em;
+    width: 100%;
 }
 
 .ag{

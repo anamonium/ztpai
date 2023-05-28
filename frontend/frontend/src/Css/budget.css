@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 4em;
 }
 
 
@@ -83,8 +84,16 @@ section{
     margin-top: 4em;
 }
 
-.budgetInfo>h1{
-    margin-bottom: 0em;
+.budgetInfo>h1, .checklistInfo > h1{
+    margin: 0em;
+    font-size: 3.2em;
+}
+
+.budgetInfo > div, .checklistInfo > div{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    font-size: 2em;
 }
 
 #bnInput, #bcInput, #baInput{

@@ -3,13 +3,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import BudgetInput from "./BudgetInput";
-import axios from "axios";
+import axiosInstance from "../axios-interceptors";
 
-function Account(props){
+function Account(){
 
     const [isCalShown, setCalendar] = useState(false);
     const [startDate, setStartDate] = useState(null);
-    const token = props.token;
     const [isBudgetEditable, setBudgetEditable] = useState(false);
 
     const [accountDet, setAccountDet] = useState({});
@@ -20,76 +19,65 @@ function Account(props){
 
 
     async function getAccount(){
-        try {
-            const response = await axios.get("/account", {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            });
-            const data = response.data;
-            console.log(data);
-            setAccountDet(data);
-            const weddDate = data.weddingDate;
+
+        try{
+            const response = await axiosInstance.get("/account");
+
+            setAccountDet(response.data);
+            const weddDate = response.data.weddingDate;
             setStartDate(new Date(weddDate));
-          } catch (error) {
-            console.error("Error fetching overview:", error);
-          }
+
+        }catch(error){
+
+        }
+
     }
 
     function logOut(){
-        sessionStorage.setItem('token', "");
+        sessionStorage.clear();
         console.log("Tok:" + sessionStorage.getItem('token'));
-        window.location.href = "/login";
+        window.location.reload(false);
     }
 
     function showCalendar(){
         setCalendar(!isCalShown);
     }
 
-    function saveDate(date){
-        console.log(date);
-        axios.put('/account/date', date, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        }).then(res => {
-            console.log(res);
+    async function saveDate(date){
+
+        try{
+            await axiosInstance.put("/account/date", date);
+
             const formattedDate = date.toISOString().substr(0, 10);
             setAccountDet(prevState => ({
                 ...prevState,
                 weddingDate: formattedDate
             }));
             setCalendar(false);
-        });
+
+        }catch(error){
+
+        }
+
     }
 
     function editBudget(){
         setBudgetEditable(true);
     }
 
-    function saveBudget(val){
-        console.log(val);
+    async function saveBudget(val){
 
-        axios.put('/account/budget', val, {
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        }).then(res => {
-            console.log(res);
+        try{
+            await axiosInstance.put('/account/budget', val);
+
             setAccountDet(prevState => ({
                 ...prevState,
                 budget: val
             }));
             setBudgetEditable(false);
-        });
+        }catch(error){
 
-        
+        }
     }
 
     return <div className = "accou" id = "acc">

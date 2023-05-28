@@ -27,6 +27,8 @@ function AddGuest(props){
       }
 
     function submitGuest(event){
+
+      if(guest.name !== "" && guest.surname !== "" && guest.phone !== ""){
         props.addGuest(guest);
         setGuest({
           name: "",
@@ -34,7 +36,7 @@ function AddGuest(props){
           phone: ""
         });
         setExpanded(false);
-
+      }
     }
 
     return <div>

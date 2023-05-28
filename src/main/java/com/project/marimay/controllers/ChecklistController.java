@@ -20,15 +20,11 @@ public class ChecklistController {
 
     private final ChecklistService checklistService;
 
-    @GetMapping("/test")
-    public ResponseEntity<?> getChecklist() {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
-
-        // Tworzenie ResponseEntity z nagłówkiem i kodem odpowiedzi
-        ResponseEntity<?> responseEntity = new ResponseEntity<>("Response Body", headers, HttpStatus.OK);
-        return responseEntity;
+    @GetMapping("/summary")
+    public ResponseEntity<?> getChecklist(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ResponseEntity.ok(checklistService.getSummary(token));
     }
     @GetMapping()
     public ResponseEntity<List<Task>> checkList(

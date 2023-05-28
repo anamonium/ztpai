@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Navigation from "../Components/Navigation/Navigation";
 import Account from "../Components/Account/Account";
 import Header from "../Components/BasicComponents/Header"
@@ -7,21 +7,14 @@ import '../Css/mainPage.css'
 
 function AccountPage(props){
 
-    const [isNavVisible, setNavVisible] = useState(true);
-
-    function toggleNav(){
-        setNavVisible(!isNavVisible);
-    }
 
     return <div className = "containerMain">
             <Header
-                hideNav = {toggleNav}
+                hideNav = {props.toggleNav}
             />
             <main>
-                {isNavVisible && <Navigation />}
+                {props.isNavVisible && <Navigation />}
                 <Account 
-                    token = {props.token}
-
                 />
             </main>
     </div>

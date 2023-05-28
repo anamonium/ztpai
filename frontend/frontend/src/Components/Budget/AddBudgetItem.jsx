@@ -26,13 +26,14 @@ function AddBudgetItem(props){
       }
 
     function submitCost(event){
+      if(bItem.cost !== "" && bItem.title !== ""){
         props.addBudget(bItem);
         setExpanded(false)
         setBItem({
           title: "",
           cost: ""
         });
-        
+      }
     }
 
     return <div className = "abi">
@@ -47,10 +48,10 @@ function AddBudgetItem(props){
         )}
 
         <input
-          name="name"
+          name="title"
           onClick={expand}
           onChange={handleChange}
-          value={bItem.name}
+          value={bItem.title}
           placeholder="Cost name..."
           rows={isExpanded ? 3 : 1}
         />

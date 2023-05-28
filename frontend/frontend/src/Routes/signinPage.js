@@ -32,7 +32,7 @@ function SignInPage(){
           .then(function (response) {
             console.log(response.data.token);
             sessionStorage.setItem('token', response.data.token);
-            //window.location.href = '/overview';
+            window.location.href = '/login';
           })
           .catch(function (error) {
             console.log("Brak dostepu");

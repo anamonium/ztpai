@@ -8,6 +8,8 @@ import com.project.marimay.repository.GuestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.List;
 
@@ -25,6 +27,15 @@ public class GuestlistService {
         return guestRepository.findGuestsByGuestListEquals(guestList);
     }
 
+    public Map<String, Integer> getSummary(String token){
+        String username = jwtService.extractUsername(token.substring(7));
+        GuestList guestList = guestListRepository.findByIdEquals(username).orElse(null);
+        Map<String, Integer> summary = new HashMap<>();
+        summary.put("accepted", guestList.getAccepted());
+        summary.put("invited", guestList.getInvited());
+
+        return summary;
+    }
     public UUID addGuest(String token, AddGuestRequest request){
         String username = jwtService.extractUsername(token.substring(7));
         GuestList guestList = guestListRepository.findByIdEquals(username).orElse(null);

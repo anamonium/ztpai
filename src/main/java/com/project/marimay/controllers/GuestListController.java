@@ -37,6 +37,13 @@ public class GuestListController {
         }
     }
 
+    @GetMapping("/summary")
+    public ResponseEntity<?> getSummary(
+            @RequestHeader("Authorization") String token
+    ){
+        return ResponseEntity.ok(guestlistService.getSummary(token));
+    }
+
     @PostMapping
     public ResponseEntity<?> addGuestListItem(
             @RequestHeader("Authorization") String token,

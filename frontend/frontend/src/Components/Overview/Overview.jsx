@@ -1,36 +1,25 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axios-interceptors";
 
 function Overview() {
-  const token = sessionStorage.getItem("token");
-  const [overview, setOverview] = useState({
-    allSubtask: 0,
-    beginningBudget: 0,
-    budgetSpend: 0,
-    guestsAccepted: 0,
-    guestsInvited: 0,
-    subtaskDone: 0,
-    weddingDate: "",
-  });
+ 
+  const [overview, setOverview] = useState({});
 
   useEffect(() => {
     getOverview();
   }, []);
 
   async function getOverview() {
-    try {
-      const response = await axios.get("/overview", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      const data = response.data;
-      setOverview(data);
-    } catch (error) {
-      console.error("Error fetching overview:", error);
+
+    try{
+
+      const response = await axiosInstance.get("/overview")
+      setOverview(response.data);
+
+    }catch(error){
+
     }
+
   }
 
   return (
