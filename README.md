@@ -48,3 +48,8 @@ There are some screenshots.
 ![Guestlist](./scr/guests.png)
 ![Account](./scr/account.png)
 
+Phone views:
+![Checklist](./scr/checklist-phone.png)
+![Budget](./scr/budget-phone.png)
+![Overview](./scr/overview-phone.png)
+![Account](./scr/account-phone.png)
