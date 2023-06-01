@@ -49,7 +49,15 @@ There are some screenshots.
 ![Account](./scr/account.png)
 
 Phone views:
+
 ![Checklist](./scr/checklist-phone.png)
 ![Budget](./scr/budget-phone.png)
-![Overview](./scr/overview-phone.png)
+![Overview](./scr/overview-pone.png)
 ![Account](./scr/account-phone.png)
+
+
+## Plans for future:
+- Adding vendor search and a tab for storing user's personal vendors
+- Adding a menu tab for saving the ideas for the big day's food
+- Adding a playlist section
+- Being able to share some contents between difftent users, eg. playlist where miltiple guests can put their own ideas
