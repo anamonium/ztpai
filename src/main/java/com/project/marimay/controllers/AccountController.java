@@ -34,7 +34,7 @@ public class AccountController {
             @RequestBody LocalDate date
     ){
         userService.changeWeddingDate(token, date);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/account/budget")
@@ -43,7 +43,7 @@ public class AccountController {
             @RequestBody Double budget
     ){
         userService.changeBudget(token, budget);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/overview")

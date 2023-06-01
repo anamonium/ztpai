@@ -135,7 +135,7 @@ function GuestList(props){
         setGuests(updatedGuests);
         setSummary({
           ...summary,
-          invited: summary.invited
+          invited: summary.invited + 1
         })
 
 

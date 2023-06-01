@@ -70,4 +70,13 @@ button, #logOutButton{
     .budgetChanger, .weddingDateChanger {
         font-size: 1.5em;
     }
+
+    #logOutButton{
+        width: 80%;
+    }
+
+    .logOut{
+        width: 70vw;
+        align-items: center;
+    }
 }

@@ -41,10 +41,10 @@ function Checklist(){
             await axiosInstance.put("/checklist/" + id);
             setTasks(tasks.map(task => {
                 if (task.id === id) {
-                    
+                    const stat = task.status ? -1 : 1
                     setSummary({
                         ...summary,
-                        done: summary.done + task.status ? -1 : 1
+                        done: summary.done + stat
                     })
                     return {...task, status: !task.status};
                 } else {

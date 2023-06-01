@@ -93,5 +93,19 @@ span, h1{
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        margin-right: 3em;
+        align-items: baseline;
+    }
+
+    .overview > div{
+        margin-right: 0em
+    }
+
+    .inside{
+        width: 100vw;
+    }
+
+    .info{
+        width: inherit
     }
 }

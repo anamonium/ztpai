@@ -49,7 +49,7 @@ public class ChecklistController {
             @PathVariable UUID item_id
     ){
         checklistService.changeTaskStatus(item_id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{item_id}")
@@ -57,6 +57,6 @@ public class ChecklistController {
             @PathVariable UUID item_id
     ){
         checklistService.deleteTask(item_id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 }

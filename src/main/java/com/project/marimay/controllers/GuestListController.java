@@ -30,7 +30,6 @@ public class GuestListController {
         try{
 
             List<Guests> guests = guestlistService.getGuestList(token);
-
             return new ResponseEntity<>(guests, HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,7 +57,7 @@ public class GuestListController {
             @PathVariable UUID item_id
     ){
         guestlistService.changeStatus(item_id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/po/{item_id}")
@@ -66,7 +65,7 @@ public class GuestListController {
             @PathVariable UUID item_id
     ){
         guestlistService.changePlusOne(item_id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{item_id}")
@@ -74,6 +73,6 @@ public class GuestListController {
             @PathVariable UUID item_id
     ){
         guestlistService.deleteGuest(item_id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 }

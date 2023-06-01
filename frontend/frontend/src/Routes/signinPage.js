@@ -22,8 +22,8 @@ function SignInPage(){
             data: {
               email: username,
               password: password,
-              name: name,
-              surname: surname,
+              firstName: name,
+              lastName: surname,
               phone: " "
             }
           };

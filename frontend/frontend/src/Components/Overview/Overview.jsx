@@ -37,7 +37,7 @@ function Overview() {
       <div className="budgett">
         <div className="overLabel">Budget left:</div>
         <div className="overInfo">
-          {overview.budgetSpend} / {overview.beginningBudget != null ? overview.beginningBudget : "You didn't set your budget"}
+          {overview.budgetSpend} / {overview.beginningBudget != null ? overview.beginningBudget : 0}
         </div>
       </div>
 

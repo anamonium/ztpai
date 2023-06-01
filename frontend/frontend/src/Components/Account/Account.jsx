@@ -25,7 +25,7 @@ function Account(){
 
             setAccountDet(response.data);
             const weddDate = response.data.weddingDate;
-            setStartDate(new Date(weddDate));
+            weddDate !== null ? setStartDate(new Date(weddDate)) : setStartDate(new Date());
 
         }catch(error){
 
@@ -35,7 +35,6 @@ function Account(){
 
     function logOut(){
         sessionStorage.clear();
-        console.log("Tok:" + sessionStorage.getItem('token'));
         window.location.reload(false);
     }
 

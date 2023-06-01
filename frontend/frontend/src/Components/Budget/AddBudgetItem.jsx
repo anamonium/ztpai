@@ -6,7 +6,7 @@ function AddBudgetItem(props){
     const [isExpanded, setExpanded] = useState(false);
 
     const [bItem, setBItem] = useState({
-        title: "",
+        name: "",
         cost: ""
       });
 
@@ -26,11 +26,11 @@ function AddBudgetItem(props){
       }
 
     function submitCost(event){
-      if(bItem.cost !== "" && bItem.title !== ""){
+      if(bItem.cost !== "" && bItem.name !== ""){
         props.addBudget(bItem);
         setExpanded(false)
         setBItem({
-          title: "",
+          name: "",
           cost: ""
         });
       }
@@ -48,10 +48,10 @@ function AddBudgetItem(props){
         )}
 
         <input
-          name="title"
+          name="name"
           onClick={expand}
           onChange={handleChange}
-          value={bItem.title}
+          value={bItem.name}
           placeholder="Cost name..."
           rows={isExpanded ? 3 : 1}
         />

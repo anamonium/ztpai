@@ -48,11 +48,7 @@ public class BudgetController {
             @PathVariable UUID id_item
     ){
         budgetService.deleteBudgetItem(id_item);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
-   @PutMapping("/{id_item}")
-    public void changeBudgetItem(@PathVariable String id_item){
-
-   }
 }

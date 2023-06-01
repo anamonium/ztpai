@@ -88,7 +88,7 @@ function Budget(){
                     <div>
 
                           <div>Budget spend: {summary.spend}</div>
-                          <div>Beginnig budget: {summary.beginning}</div>
+                          <div>Beginnig budget: {summary.beginning === null ? 0 : summary.beginning}</div>
 
                     </div>
                 </div>

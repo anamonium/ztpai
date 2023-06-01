@@ -8,6 +8,7 @@ function LoginPage(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [noAccess, setNoAccess] = useState('');
 
     async function handleLogin(){
 
@@ -28,7 +29,7 @@ function LoginPage(){
             window.location.href = '/overview';
           })
           .catch(function (error) {
-            console.log("Brak dostepu");
+            setNoAccess("Wrong login or password");
           });
       
     }
@@ -44,6 +45,8 @@ function LoginPage(){
             </div>
             <form className="tmp">
                 Log in
+                
+                <div>{noAccess}</div>
                 <input 
                     name = "email" 
                     type="text" 
